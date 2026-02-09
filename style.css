@@ -1,0 +1,235 @@
+:root {
+  /* COLORS */
+  --grey-950: #08070b;
+  --grey-900: #14131b;
+  --grey-850: #18171f;
+  --grey-800: #24232c;
+  --grey-700: #54535b;
+  --grey-600: #817d92;
+  --grey-200: #e6e5ea;
+
+  --green-200: #a4ffaf;
+
+  --yellow-300: #f8cd65;
+
+  --orange-400: #fb7c58;
+
+  --red-500: #f64a4a;
+
+  --gradient-1: linear-gradient(to right, #14131b, #08070b);
+
+  /* TEXT PRESETS */
+  --text-preset-1: bold 32px/42px "JetBrains Mono", monospace;
+  --text-preset-2: bold 24px/32px "JetBrains Mono", monospace;
+  --text-preset-3: bold 18px/24px "JetBrains Mono", monospace;
+  --text-preset-4: bold 16px/20px "JetBrains Mono", monospace;
+}
+
+/* GLOBAL */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: "JetBrains Mono";
+  color: white;
+  background-color: var(--grey-900);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 1rem;
+}
+main {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 1rem;
+}
+
+h1 {
+  font: var(--text-preset-4);
+  color: var(--grey-600);
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* PASSWORD DISPLAY */
+.password-display {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  background-color: var(--grey-800);
+}
+
+.password-display__text {
+  font: var(--text-preset-2);
+  color: var(--grey-700);
+}
+
+.password-display__copy {
+  background-color: var(--grey-800);
+  border: 0;
+}
+
+/* GENERATOR */
+.generator {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--grey-800);
+  padding: 1rem;
+}
+
+/* GENERATOR - SLIDER */
+.generator__slider {
+  display: flex;
+  flex-direction: column;
+  margin-block-end: 2rem;
+  gap: 0.5rem;
+}
+
+.generator__slider-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-block-end: 1rem;
+}
+
+.generator__slider-label {
+  font: var(--text-preset-4);
+  color: var(--grey-200);
+}
+
+.generator__slider-meter {
+  appearance: none;
+  height: 8px;
+
+  background: linear-gradient(
+    to right,
+    var(--green-200) var(--fill-percent, 0%),
+    var(--grey-850) var(--fill-percent, 0%)
+  );
+}
+
+.generator__slider-meter::-webkit-slider-thumb {
+  appearance: none;
+  width: 28px;
+  height: 28px;
+  background: #e2e2e2;
+  border-radius: 50%;
+}
+
+.generator__slider-output {
+  font: var(--text-preset-1);
+  color: var(--green-200);
+  font-size: clamp(1.5rem, 5vw, 2rem);
+  margin-inline-end: 1rem;
+  line-height: 1;
+}
+
+/* GENERATOR - CHECKBOXES */
+.generator__checkboxes-all {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-block-end: 2rem;
+}
+
+.generator__checkbox-section {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.generator__checkbox-label {
+  font: var(--text-preset-4);
+}
+
+.generator__checkbox {
+  appearance: none;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 2px solid white;
+  transition: 0.1s ease-in-out;
+  cursor: pointer;
+}
+
+.generator__checkbox:checked {
+  border: 2px solid var(--green-200);
+  background-color: var(--green-200);
+  background-image: url("assets/images/icon-check.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.generator__checkbox:hover {
+  border: 2px solid var(--green-200);
+  transition: 0.1s ease-in-out;
+}
+/* STRENGTH METER */
+
+.strength-meter__indication {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.strength-meter {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--grey-850);
+  padding-block-end: 14px;
+  padding-block-start: 14px;
+  padding-inline-end: 16px;
+  padding-inline-start: 16px;
+  margin-block-end: 1rem;
+}
+
+.strength-meter__text {
+  font: var(--text-preset-4);
+  color: var(--grey-600);
+}
+
+.strength-meter__level {
+  font: var(--text-preset-1);
+  font-size: clamp(1rem, 5vw, 1.5rem);
+}
+.strength-meter__boxes-all {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.strength-meter__box {
+  border: 2px solid white;
+  width: 12px;
+  height: 32px;
+}
+
+/* BUTTON */
+.generator__btn {
+  background-color: var(--green-200);
+  border: 0;
+  font: var(--text-preset-4);
+  padding-block-end: 1rem;
+  padding-block-start: 1rem;
+  color: var(--grey-800);
+  transition: 0.2s ease-in-out;
+  border: 2px solid transparent;
+}
+
+.generator__btn:hover {
+  background-color: var(--grey-800);
+  border: 2px solid var(--green-200);
+  color: var(--green-200);
+  cursor: pointer;
+}

@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="main.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;1,400&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/images/favicon-32x32.png"
+    />
+
+    <link href="style.css" rel="stylesheet" />
+
+    <title>Frontend Mentor | Password generator app</title>
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>Password Generator</h1>
+      </header>
+
+      <div class="password-display">
+        <div class="password-display__text">P4$5W0rD!</div>
+        <button class="password-display__copy">
+          <img src="assets/images/icon-copy.svg" alt="Copy the Password" />
+        </button>
+      </div>
+      <form class="generator">
+        <div class="generator__slider">
+          <div class="generator__slider-header">
+            <label for="slider" class="generator__slider-label"
+              >Character Length</label
+            >
+            <div class="generator__slider-output" id="slider-output">0</div>
+          </div>
+
+          <input
+            type="range"
+            id="slider"
+            class="generator__slider-meter"
+            value="0"
+            min="0"
+            max="20"
+          />
+        </div>
+        <div class="generator__checkboxes-all">
+          <div class="generator__checkbox-section">
+            <input
+              type="checkbox"
+              id="upper-case"
+              class="generator__checkbox"
+            />
+            <label for="upper-case" class="generator__checkbox-label"
+              >Include Uppercase Letters</label
+            >
+          </div>
+
+          <div class="generator__checkbox-section">
+            <input
+              type="checkbox"
+              id="lower-case"
+              class="generator__checkbox"
+            />
+            <label for="lower-case" class="generator__checkbox-label"
+              >Include Lowercase Letters</label
+            >
+          </div>
+
+          <div class="generator__checkbox-section">
+            <input type="checkbox" id="numbers" class="generator__checkbox" />
+            <label for="numbers" class="generator__checkbox-label"
+              >Include Numbers</label
+            >
+          </div>
+
+          <div class="generator__checkbox-section">
+            <input type="checkbox" id="symbols" class="generator__checkbox" />
+            <label for="symbols" class="generator__checkbox-label"
+              >Include Symbols</label
+            >
+          </div>
+        </div>
+        <div class="strength-meter">
+          <span class="strength-meter__text">STRENGTH</span>
+
+          <div class="strength-meter__indication">
+            <span class="strength-meter__level">MEDIUM</span>
+
+            <div class="strength-meter__boxes-all">
+              <div class="strength-meter__box"></div>
+              <div class="strength-meter__box"></div>
+              <div class="strength-meter__box"></div>
+              <div class="strength-meter__box"></div>
+            </div>
+          </div>
+        </div>
+        <button class="generator__btn">
+          GENERATE
+          <svg width="12" height="12" xmlns="http://www.w3.org/2000/svg">
+            <path
+              fill="currentColor"
+              d="m5.106 12 6-6-6-6-1.265 1.265 3.841 3.84H.001v1.79h7.681l-3.841 3.84z"
+            />
+          </svg>
+        </button>
+      </form>
+    </main>
+  </body>
+</html>

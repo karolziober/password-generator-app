@@ -74,9 +74,20 @@ header {
   color: var(--grey-700);
 }
 
+.active {
+  font: var(--text-preset-2);
+  color: white;
+}
+
 .password-display__copy {
   background-color: var(--grey-800);
   border: 0;
+  transition: 0.2s ease-in-out;
+  color: var(--green-200);
+}
+.password-display__copy:hover {
+  color: white;
+  cursor: pointer;
 }
 
 /* GENERATOR */

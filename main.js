@@ -13,6 +13,10 @@ class Generator {
     };
 
     //// SELECTORS
+
+    // PW OUTPUT
+    this.pwOutput = document.querySelector(".password-display__text");
+    this.copyPW = document.getElementById("copyPW");
     // Slider
     this.slider = document.getElementById("slider");
     this.sliderOutput = document.getElementById("slider-output");
@@ -33,14 +37,30 @@ class Generator {
   init() {
     this.sliderHandling();
     this.passwordGen();
+    this.passwordCopy();
   }
 
   sliderHandling() {
     this.slider.addEventListener("input", () => {
-      const sliderValue = (this.slider.value / this.slider.max) * 100;
+      const sliderValue =
+        ((this.slider.value - this.slider.min) /
+          (this.slider.max - this.slider.min)) *
+        100;
       this.slider.style.setProperty("--fill-percent", `${sliderValue}%`);
       this.sliderOutput.textContent = this.slider.value;
     });
+  }
+
+  arrayShuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const random = Math.floor(Math.random() * (i + 1));
+      [array[i], array[random]] = [array[random], array[i]];
+    }
+    return array;
+  }
+
+  randomCharacter(array) {
+    return Math.floor(Math.random() * array.length);
   }
 
   passwordGen() {
@@ -49,21 +69,42 @@ class Generator {
 
       // COLLECT INPUT
       const charLength = Number(this.slider.value);
-      if (charLength > 0) {
-        let options = [];
-        this.checkboxesAll.forEach((item) => {
-          item.checked ? options.push(this.DATASET[item.id]) : null;
-        });
+
+      let options = [];
+      this.checkboxesAll.forEach((item) => {
+        item.checked ? options.push(this.DATASET[item.id]) : null;
+      });
+
+      if (options.length > 0) {
         const remaining = options.join("");
 
         // RANDOM FROM EACH SELECTED CHECKBOX
-        const pwSet = [];
-        for (const option of options) {
-          const x = Math.floor(Math.random() * option.length);
-          pwSet.push(option[x]);
-        }
+        const charCheckBased = options.map((option) => {
+          // const char = Math.floor(Math.random() * option.length);
+          const char = this.randomCharacter(option);
+          return option[char];
+        });
 
-        console.log(charLength - pwSet.length);
+        // RANDOM SELECT FROM REMAINING
+        const length = charLength - charCheckBased.length;
+        const randomRemaining = Array.from({ length }, () => {
+          return remaining[this.randomCharacter(remaining)];
+        });
+
+        // PASSWORD OUTPUT
+        const concatArray = charCheckBased.concat(randomRemaining);
+        this.pwOutput.textContent = this.arrayShuffle(concatArray).join("");
+        this.pwOutput.classList.add("active");
+      } else {
+        this.pwOutput.textContent = "Checkbox is required";
+      }
+    });
+  }
+
+  passwordCopy() {
+    this.copyPW.addEventListener("click", () => {
+      if (this.pwOutput.textContent !== "P4$5W0rD!") {
+        navigator.clipboard.writeText(this.pwOutput.textContent);
       }
     });
   }

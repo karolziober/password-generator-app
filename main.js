@@ -11,6 +11,17 @@ class Generator {
       numbers: this.NUMBERS,
       symbols: this.SYMBOLS,
     };
+    this.STRENGTH_LEVELS = [
+      { minScore: 10, label: "STRONG", color: "--green-200", bars: 4 },
+      { minScore: 7, label: "MEDIUM", color: "--yellow-300", bars: 3 },
+      { minScore: 4, label: "WEAK", color: "--orange-400", bars: 2 },
+      { minScore: 1, label: "TOO WEAK!", color: "--red-500", bars: 1 },
+    ];
+    this.SLIDER_SCORE = [
+      { min: 16, points: 3 },
+      { min: 12, points: 2 },
+      { min: 8, points: 1 },
+    ];
 
     //// SELECTORS
 
@@ -28,6 +39,10 @@ class Generator {
     this.numbersCheck = document.getElementById("numbers");
     this.symbolsCheck = document.getElementById("symbols");
 
+    // Strength
+    this.strenghtLevelText = document.getElementById("strength-meter-text");
+    this.strenghtLevelBoxes = document.querySelectorAll(".strength-meter__box");
+
     // Generate
     this.generateBtn = document.getElementById("generatePW");
     //// INIT
@@ -38,6 +53,8 @@ class Generator {
     this.sliderHandling();
     this.passwordGen();
     this.passwordCopy();
+    this.checkBoxHandling();
+    this.updateStrengthMeter();
   }
 
   sliderHandling() {
@@ -48,7 +65,16 @@ class Generator {
         100;
       this.slider.style.setProperty("--fill-percent", `${sliderValue}%`);
       this.sliderOutput.textContent = this.slider.value;
+      this.updateStrengthMeter();
     });
+  }
+
+  checkBoxHandling() {
+    this.checkboxesAll.forEach((item) =>
+      item.addEventListener("change", () => {
+        this.updateStrengthMeter();
+      }),
+    );
   }
 
   arrayShuffle(array) {
@@ -80,7 +106,6 @@ class Generator {
 
         // RANDOM FROM EACH SELECTED CHECKBOX
         const charCheckBased = options.map((option) => {
-          // const char = Math.floor(Math.random() * option.length);
           const char = this.randomCharacter(option);
           return option[char];
         });
@@ -95,6 +120,9 @@ class Generator {
         const concatArray = charCheckBased.concat(randomRemaining);
         this.pwOutput.textContent = this.arrayShuffle(concatArray).join("");
         this.pwOutput.classList.add("active");
+
+        // SCORE OUTPUT
+        this.updateStrengthMeter();
       } else {
         this.pwOutput.textContent = "Checkbox is required";
       }
@@ -105,6 +133,34 @@ class Generator {
     this.copyPW.addEventListener("click", () => {
       if (this.pwOutput.textContent !== "P4$5W0rD!") {
         navigator.clipboard.writeText(this.pwOutput.textContent);
+      }
+    });
+  }
+
+  calculateScore() {
+    const checkBoxScore =
+      [...this.checkboxesAll].filter((item) => item.checked).length * 2;
+
+    const sliderScore = this.SLIDER_SCORE.find(
+      (item) => Number(this.slider.value) >= item.min,
+    ).points;
+    return sliderScore + checkBoxScore;
+  }
+
+  updateStrengthMeter() {
+    const score = this.calculateScore();
+    const meterObj = this.STRENGTH_LEVELS.find(
+      (item) => score >= item.minScore,
+    );
+    this.strenghtLevelText.textContent = meterObj.label;
+
+    this.strenghtLevelBoxes.forEach((item, i) => {
+      if (i < meterObj.bars) {
+        item.style.backgroundColor = `var(${meterObj.color})`;
+        item.style.border = `2px solid var(${meterObj.color})`;
+      } else {
+        item.style.backgroundColor = "";
+        item.style.border = `2px solid white`;
       }
     });
   }

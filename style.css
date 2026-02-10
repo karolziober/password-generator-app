@@ -70,12 +70,14 @@ header {
 }
 
 .password-display__text {
-  font: var(--text-preset-2);
+  font: var(--text-preset-1);
+  font-size: clamp(24px, 5vw, 42px);
   color: var(--grey-700);
 }
 
 .active {
-  font: var(--text-preset-2);
+  /* font: var(--text-preset-2);
+  font-size: clamp(16px, 5vw, 32px); */
   color: white;
 }
 
@@ -224,6 +226,7 @@ header {
   border: 2px solid white;
   width: 12px;
   height: 32px;
+  background-color: none;
 }
 
 /* BUTTON */

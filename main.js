@@ -28,16 +28,14 @@ class Generator {
     // PW OUTPUT
     this.pwOutput = document.querySelector(".password-display__text");
     this.copyPW = document.getElementById("copyPW");
+    this.copiedAlert = document.querySelector(".password-display__copied");
+
     // Slider
     this.slider = document.getElementById("slider");
     this.sliderOutput = document.getElementById("slider-output");
 
     // Checkboxes
     this.checkboxesAll = document.querySelectorAll(".generator__checkbox");
-    this.upperCaseCheck = document.getElementById("upper-case");
-    this.lowerCaseCheck = document.getElementById("lower-case");
-    this.numbersCheck = document.getElementById("numbers");
-    this.symbolsCheck = document.getElementById("symbols");
 
     // Strength
     this.strenghtLevelText = document.getElementById("strength-meter-text");
@@ -119,13 +117,15 @@ class Generator {
         // PASSWORD OUTPUT
         const concatArray = charCheckBased.concat(randomRemaining);
         this.pwOutput.textContent = this.arrayShuffle(concatArray).join("");
-        this.pwOutput.classList.add("active");
+        this.pwOutput.classList.add("password-display__text--generated");
 
         // SCORE OUTPUT
         this.updateStrengthMeter();
       } else {
         this.pwOutput.textContent = "Checkbox is required";
       }
+
+      this.copiedAlert.style.display = "";
     });
   }
 
@@ -133,6 +133,7 @@ class Generator {
     this.copyPW.addEventListener("click", () => {
       if (this.pwOutput.textContent !== "P4$5W0rD!") {
         navigator.clipboard.writeText(this.pwOutput.textContent);
+        this.copiedAlert.style.display = "block";
       }
     });
   }

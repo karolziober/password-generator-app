@@ -34,13 +34,13 @@
 body {
   font-family: "JetBrains Mono";
   color: white;
-  background-color: var(--grey-900);
+  background: var(--gradient-1);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  padding: 1rem;
+  padding: clamp(1rem, 5vw, 6rem);
 }
 main {
   display: flex;
@@ -51,7 +51,9 @@ main {
 
 h1 {
   font: var(--text-preset-4);
+  font-size: clamp(1rem, 5vw, 1.5rem);
   color: var(--grey-600);
+  margin-block-end: 1rem;
 }
 
 header {
@@ -71,25 +73,37 @@ header {
 
 .password-display__text {
   font: var(--text-preset-1);
-  font-size: clamp(24px, 5vw, 42px);
+  font-size: clamp(12px, 5vw, 42px);
   color: var(--grey-700);
 }
 
-.active {
-  /* font: var(--text-preset-2);
-  font-size: clamp(16px, 5vw, 32px); */
+.password-display__text--generated {
   color: white;
 }
 
 .password-display__copy {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+}
+
+.password-display__copy-btn {
   background-color: var(--grey-800);
   border: 0;
   transition: 0.2s ease-in-out;
   color: var(--green-200);
 }
-.password-display__copy:hover {
+.password-display__copy-btn:hover {
   color: white;
   cursor: pointer;
+}
+
+.password-display__copied {
+  display: none;
+  font: var(--text-preset-3);
+  font-size: clamp(0.375rem, 5vw, 1rem);
+  color: var(--green-200);
 }
 
 /* GENERATOR */
@@ -184,7 +198,6 @@ header {
 }
 .generator__checkbox:hover {
   border: 2px solid var(--green-200);
-  transition: 0.1s ease-in-out;
 }
 /* STRENGTH METER */
 
@@ -226,13 +239,12 @@ header {
   border: 2px solid white;
   width: 12px;
   height: 32px;
-  background-color: none;
+  background-color: transparent;
 }
 
 /* BUTTON */
 .generator__btn {
   background-color: var(--green-200);
-  border: 0;
   font: var(--text-preset-4);
   padding-block-end: 1rem;
   padding-block-start: 1rem;
@@ -246,4 +258,24 @@ header {
   border: 2px solid var(--green-200);
   color: var(--green-200);
   cursor: pointer;
+}
+
+@media (min-width: 768px) {
+  main {
+    max-width: 43.5rem;
+  }
+  .password-display {
+    padding-inline-start: 2rem;
+    padding-inline-end: 2rem;
+  }
+  .password-display__copy {
+    gap: 1rem;
+  }
+
+  .generator {
+    padding-inline-start: 2rem;
+    padding-inline-end: 2rem;
+    padding-block-start: 1.5rem;
+    padding-block-end: 2rem;
+  }
 }

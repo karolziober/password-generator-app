@@ -94,7 +94,7 @@ class Generator {
       // COLLECT INPUT
       const charLength = Number(this.slider.value);
 
-      let options = [];
+      const options = [];
       this.checkboxesAll.forEach((item) => {
         item.checked ? options.push(this.DATASET[item.id]) : null;
       });
@@ -139,13 +139,20 @@ class Generator {
   }
 
   calculateScore() {
-    const checkBoxScore =
-      [...this.checkboxesAll].filter((item) => item.checked).length * 2;
+    const selectedCheckBoxes = [...this.checkboxesAll].filter(
+      (item) => item.checked,
+    );
 
-    const sliderScore = this.SLIDER_SCORE.find(
-      (item) => Number(this.slider.value) >= item.min,
-    ).points;
-    return sliderScore + checkBoxScore;
+    if (selectedCheckBoxes.length > 0) {
+      const checkBoxScore = selectedCheckBoxes.length * 2;
+
+      const sliderScore = this.SLIDER_SCORE.find(
+        (item) => Number(this.slider.value) >= item.min,
+      ).points;
+      return sliderScore + checkBoxScore;
+    } else {
+      return 0;
+    }
   }
 
   updateStrengthMeter() {
@@ -153,17 +160,25 @@ class Generator {
     const meterObj = this.STRENGTH_LEVELS.find(
       (item) => score >= item.minScore,
     );
-    this.strenghtLevelText.textContent = meterObj.label;
+    if (meterObj) {
+      this.strenghtLevelText.textContent = meterObj.label;
 
-    this.strenghtLevelBoxes.forEach((item, i) => {
-      if (i < meterObj.bars) {
-        item.style.backgroundColor = `var(${meterObj.color})`;
-        item.style.border = `2px solid var(${meterObj.color})`;
-      } else {
+      this.strenghtLevelBoxes.forEach((item, i) => {
+        if (i < meterObj.bars) {
+          item.style.backgroundColor = `var(${meterObj.color})`;
+          item.style.border = `2px solid var(${meterObj.color})`;
+        } else {
+          item.style.backgroundColor = "";
+          item.style.border = `2px solid white`;
+        }
+      });
+    } else {
+      this.strenghtLevelText.textContent = "";
+      this.strenghtLevelBoxes.forEach((item) => {
         item.style.backgroundColor = "";
         item.style.border = `2px solid white`;
-      }
-    });
+      });
+    }
   }
 }
 new Generator();

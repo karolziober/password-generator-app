@@ -83,7 +83,7 @@ class Generator {
     return array;
   }
 
-  randomCharacter(array) {
+  randomIndex(array) {
     return Math.floor(Math.random() * array.length);
   }
 
@@ -96,7 +96,7 @@ class Generator {
 
       const options = [];
       this.checkboxesAll.forEach((item) => {
-        item.checked ? options.push(this.DATASET[item.id]) : null;
+        if (item.checked) options.push(this.DATASET[item.id]);
       });
 
       if (options.length > 0) {
@@ -104,14 +104,14 @@ class Generator {
 
         // RANDOM FROM EACH SELECTED CHECKBOX
         const charCheckBased = options.map((option) => {
-          const char = this.randomCharacter(option);
+          const char = this.randomIndex(option);
           return option[char];
         });
 
         // RANDOM SELECT FROM REMAINING
         const length = charLength - charCheckBased.length;
         const randomRemaining = Array.from({ length }, () => {
-          return remaining[this.randomCharacter(remaining)];
+          return remaining[this.randomIndex(remaining)];
         });
 
         // PASSWORD OUTPUT

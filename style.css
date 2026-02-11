@@ -46,6 +46,7 @@ main {
   display: flex;
   flex-direction: column;
   width: 100%;
+  max-width: 600px;
   gap: 1rem;
 }
 
@@ -67,13 +68,14 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem;
+  padding-block: 16px;
+  padding-inline: 16px;
   background-color: var(--grey-800);
 }
 
 .password-display__text {
   font: var(--text-preset-1);
-  font-size: clamp(0.75rem, 5vw, 2.625rem);
+  font-size: clamp(0.75rem, 5vw, 2rem);
   color: var(--grey-700);
 }
 
@@ -111,7 +113,7 @@ header {
   display: flex;
   flex-direction: column;
   background-color: var(--grey-800);
-  padding: 1rem;
+  padding: clamp(1rem, 5vw, 2rem);
 }
 
 /* GENERATOR - SLIDER */
@@ -258,21 +260,11 @@ header {
 }
 
 @media (min-width: 48rem) {
-  main {
-    max-width: 43.5rem;
-  }
   .password-display {
     padding-inline-start: 2rem;
     padding-inline-end: 2rem;
   }
   .password-display__copy {
     gap: 1rem;
-  }
-
-  .generator {
-    padding-inline-start: 2rem;
-    padding-inline-end: 2rem;
-    padding-block-start: 1.5rem;
-    padding-block-end: 2rem;
   }
 }
